@@ -1,4 +1,4 @@
-from incolumepy_infosaj import __version__
+from incolumepy.infosaj import __version__
 
 
 def test_version():

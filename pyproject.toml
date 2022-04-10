@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "incolumepy.infosaj"
 version = "0.1.0"
-description = ""
+description = "Gerador do Informativo SAJ em HTML."
 authors = ["Britodfbr <britodfbr@gmail.com>"]
+packages = [
+  {include = "incolumepy", from=""},
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
