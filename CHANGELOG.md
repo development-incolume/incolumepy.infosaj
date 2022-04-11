@@ -1,4 +1,4 @@
-# CHANGELOG
+# CHANGELOG #
 
 
 All notable changes to this project will be documented in this file.
@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 This file was automatically generated for [incolumepy.utils](https://gitlab.com/development-incolume/incolumepy.utils/-/tree/2.5.4)
 
 ---
+
+## [0.4.0]	2022-04-11:
+	Changed: Unificação de versionamento e padronização com Versionamento Semântico
+## [0.3.0]	2022-04-10:
+	Changed: configuração das ferramentas de Qualidade de Software
 ## [0.2.0]	2022-04-10:
 	Changed: Aplicado Namespace
 ## [0.1.0]	2022-04-10:
@@ -15,3 +20,7 @@ This file was automatically generated for [incolumepy.utils](https://gitlab.com/
 ---
 
 [0.2.0]: https://github.com/incolumepy/incolumepy.infosaj/compare/0.1.0...0.2.0
+
+[0.3.0]: https://github.com/incolumepy/incolumepy.infosaj/compare/0.2.0...0.3.0
+
+[0.4.0]: https://github.com/incolumepy/incolumepy.infosaj/compare/0.3.0...0.4.0
