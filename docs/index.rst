@@ -27,7 +27,6 @@ Contents
     prefacio
     usage
     api
-    HISTORY
     examples/EXAMPLES
     changelog-ref.rst
     development
