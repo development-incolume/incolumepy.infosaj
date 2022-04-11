@@ -1,1 +1,2 @@
-__version__ = '0.1.0'
+"""Principal module."""
+__version__ = "0.1.0"

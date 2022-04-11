@@ -3,7 +3,7 @@ DIRECTORIES = $$(find -wholename ./src -o -wholename ./incolumepy -o -wholename 
 PKGNAME = 'incolumepy'
 REPORT_DIR = 'coverage_report'
 PYTHON_VERSION := 3.10
-URLCOMPARE := 'https://github.com/incolumepy-prospections/incolumepy.dataclass/compare/'
+URLCOMPARE := 'https://github.com/incolumepy/incolumepy.infosaj/compare'
 CHANGELOGFILE := 'CHANGELOG.md'
 
 .PHONY: black
