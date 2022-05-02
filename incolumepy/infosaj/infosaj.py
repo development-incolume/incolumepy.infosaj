@@ -6,7 +6,7 @@ import logging
 import os
 from pathlib import Path
 from random import randint
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, List
 
 import yaml
 from bs4 import BeautifulSoup
@@ -185,6 +185,23 @@ def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
     return soup
 
 
+def section_neofitos(soup: BeautifulSoup, content: List[str]):
+    """Set neofitos table"""
+    logging.debug('section_neofitos')
+    soup.body.select_one(".neofitos").append(soup.new_tag("h2"))
+    soup.body.select_one(
+        ".neofitos"
+    ).h2.string = "Bem vindos à SAJ"
+
+    # Listagem
+    soup.body.select_one(".neofitos").append(soup.new_tag("ul"))
+    for neofito in sorted(content["neofitos"]):
+        neo = soup.new_tag('li')
+        neo.append(neofito)
+        soup.select_one('.neofitos').ul.append(neo)
+    return soup
+
+
 def set_entrance(file: Union[str, Path] = ""):
     temp = os.environ.get("INCOLUMEPY_INFOSAJ")
     try:
@@ -228,6 +245,10 @@ def gen_infosaj(file: Union[str, Path] = ''):
     # Aniversariantes
     soup.body.append(soup.new_tag("div", attrs={"class": "aniversariantes"}))
     section_aniver(soup, content)
+
+    # Neofitos
+    soup.body.append(soup.new_tag("div", attrs={"class": "neofitos"}))
+    section_neofitos(soup, content)
 
     # Footer
     soup.body.append(soup.new_tag("footer"))

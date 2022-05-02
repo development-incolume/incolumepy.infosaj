@@ -61,6 +61,10 @@ footer{
   margin-left: auto;
   margin-right: auto;
 }
+.neofitos li {
+  list-style-image: url("../IMG/funcio-07.png");
+  background-size: 40px
+}
 caption {
   caption-side: bottom;
 }
