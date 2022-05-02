@@ -187,18 +187,36 @@ def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
 
 def section_neofitos(soup: BeautifulSoup, content: List[str]):
     """Set neofitos table"""
+    if not content['neofitos']:
+        return soup
+
     logging.debug('section_neofitos')
     soup.body.select_one(".neofitos").append(soup.new_tag("h2"))
     soup.body.select_one(
         ".neofitos"
     ).h2.string = "Bem vindos à SAJ"
 
-    # Listagem
-    soup.body.select_one(".neofitos").append(soup.new_tag("ul"))
-    for neofito in sorted(content["neofitos"]):
-        neo = soup.new_tag('li')
-        neo.append(neofito)
-        soup.select_one('.neofitos').ul.append(neo)
+    # Table
+    soup.body.select_one(".neofitos").append(soup.new_tag("table"))
+    tabletitle = soup.new_tag("thead")
+    tabletitle.append(soup.new_tag("tr"))
+    tabletitle.tr.append(soup.new_tag("th"))
+    tabletitle.tr.append(soup.new_tag("th"))
+    soup.select_one(".neofitos").table.append(tabletitle)
+    soup.select_one(".neofitos").table.append(soup.new_tag("caption"))
+    soup.body.select_one(".neofitos").table.caption.string = (
+        "Bem vindo à SAJ — "
+        f'{meses(content["infodate"].month)}/{content["infodate"].year}'
+    )
+    soup.select_one(".neofitos").table.append(soup.new_tag("tbody"))
+    soup.select_one(".neofitos").table.append(soup.new_tag("tfoot"))
+    for neofito in content['neofitos']:
+        row = soup.new_tag('tr')
+        row.append(soup.new_tag("td"))
+        row.append(soup.new_tag("td"))
+        # row.select_one("td:nth-of-type(1)").append(date.strftime("%d/%m"))
+        row.select_one("td:nth-of-type(2)").append(neofito)
+        soup.select_one(".neofitos").table.tbody.append(row)
     return soup
 
 
