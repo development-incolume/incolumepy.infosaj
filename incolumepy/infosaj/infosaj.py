@@ -111,44 +111,44 @@ def section_decisoes(soup: BeautifulSoup, content: Dict[str, Any]):
 
     for i, decisoes in enumerate(content["decisões"], start=1):
         logging.debug(i, decisoes)
-        soup.body.select_one('.decisoes')\
+        soup.body.select_one('.decisoes') \
             .append(soup.new_tag("div", attrs={'class': 'decisao'}))
-        soup.body.select_one('.decisoes')\
-            .select_one(f"div:nth-of-type({i})")\
+        soup.body.select_one('.decisoes') \
+            .select_one(f"div:nth-of-type({i})") \
             .append(soup.new_tag("h3"))
-        soup.body.select_one('.decisoes')\
-            .select_one(f"div:nth-of-type({i})")\
+        soup.body.select_one('.decisoes') \
+            .select_one(f"div:nth-of-type({i})") \
             .h3.string = decisoes["title"]
-        soup.body.select_one('.decisoes')\
-            .select_one(f"div:nth-of-type({i})")\
+        soup.body.select_one('.decisoes') \
+            .select_one(f"div:nth-of-type({i})") \
             .append(soup.new_tag("span", attrs={"id": "relator"}))
-        soup.body.select_one('.decisoes')\
-            .select_one(f"div:nth-of-type({i})")\
+        soup.body.select_one('.decisoes') \
+            .select_one(f"div:nth-of-type({i})") \
             .span.string = f'Relator(a): {decisoes["relator"]}'
-        soup.body.select_one('.decisoes')\
-            .select_one(f"div:nth-of-type({i})")\
+        soup.body.select_one('.decisoes') \
+            .select_one(f"div:nth-of-type({i})") \
             .append(soup.new_tag("p"))
-        soup.body.select_one('.decisoes')\
+        soup.body.select_one('.decisoes') \
             .select_one(f"div:nth-of-type({i})").p.string = decisoes["resumo"]
         link = decisoes.get("linkaddress")
         msg = decisoes.get("message")
         if link:
-            soup.body.select_one('.decisoes')\
-                .select_one(f"div:nth-of-type({i})")\
+            soup.body.select_one('.decisoes') \
+                .select_one(f"div:nth-of-type({i})") \
                 .append(soup.new_tag("span", attrs={"id": "link"}))
             a = soup.new_tag("a", attrs={"href": link})
             a.string = decisoes.get("linktext")
-            soup.body.select_one('.decisoes')\
-                .select_one(f"div:nth-of-type({i})")\
+            soup.body.select_one('.decisoes') \
+                .select_one(f"div:nth-of-type({i})") \
                 .select_one("#link").append("Para leitura completa acesse:")
             if msg:
-                soup.body.select_one('.decisoes')\
-                    .select_one(f"div:nth-of-type({i})")\
+                soup.body.select_one('.decisoes') \
+                    .select_one(f"div:nth-of-type({i})") \
                     .select_one("#link").string = msg
-            soup.body.select_one('.decisoes')\
-                .select_one(f"div:nth-of-type({i})")\
+            soup.body.select_one('.decisoes') \
+                .select_one(f"div:nth-of-type({i})") \
                 .select_one("#link").append(a)
-        soup.body.select_one('.decisoes')\
+        soup.body.select_one('.decisoes') \
             .append(soup.new_tag("hr"))
     return soup
 
@@ -197,8 +197,7 @@ def set_entrance(file: Union[str, Path] = ""):
         return Path(file)
     except:
         pass
-    gen_model_conf()
-    return Path.home().joinpath('infosaj', 'model.yaml')
+    return gen_model_conf()
 
 
 def gen_infosaj(file: Union[str, Path] = ''):
@@ -250,7 +249,22 @@ def gen_infosaj(file: Union[str, Path] = ''):
     return filename.as_posix()
 
 
+def home_validate():
+    print(Path.home().joinpath('infosaj', 'model.yaml').is_file())
+    print(
+        Path(os.environ.get('USERPROFILE'))
+            .joinpath('infosaj', 'model.yaml')
+            .is_file()
+    )
+    print(
+        Path(os.environ.get('HOMEPATH'))
+            .joinpath('infosaj', 'model.yaml')
+            .is_file()
+    )
+
+
 if __name__ == "__main__":  # pragma: no cover
     # gen_infosaj(Path('/tmp/test_load_model_envvar/model.yaml'))
-    print(gen_model_conf())
-    print(gen_infosaj())
+    # print(gen_model_conf())
+    # print(gen_infosaj())
+    print(gen_infosaj(Path.home().joinpath('infosaj', 'model.yml')))
