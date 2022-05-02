@@ -167,11 +167,11 @@ def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
     tabletitle.tr.append(soup.new_tag("th"))
     tabletitle.tr.append(soup.new_tag("th"))
     soup.select_one(".aniversariantes").table.append(tabletitle)
-    soup.select_one(".aniversariantes").table.append(soup.new_tag("caption"))
-    soup.body.select_one(".aniversariantes").table.caption.string = (
-        "Aniversariantes SAJ — "
-        f'{meses(content["infodate"].month)}/{content["infodate"].year}'
-    )
+    # soup.select_one(".aniversariantes").table.append(soup.new_tag("caption"))
+    # soup.body.select_one(".aniversariantes").table.caption.string = (
+    #     "Aniversariantes SAJ — "
+    #     f'{meses(content["infodate"].month)}/{content["infodate"].year}'
+    # )
     soup.select_one(".aniversariantes").table.append(soup.new_tag("tbody"))
     soup.select_one(".aniversariantes").table.append(soup.new_tag("tfoot"))
     for date, name in sorted(content["aniversariantes"]):
@@ -203,18 +203,28 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
     tabletitle.tr.append(soup.new_tag("th"))
     tabletitle.tr.append(soup.new_tag("th"))
     soup.select_one(".neofitos").table.append(tabletitle)
-    soup.select_one(".neofitos").table.append(soup.new_tag("caption"))
-    soup.body.select_one(".neofitos").table.caption.string = (
-        "Bem vindo à SAJ — "
-        f'{meses(content["infodate"].month)}/{content["infodate"].year}'
-    )
+    # soup.select_one(".neofitos").table.append(soup.new_tag("caption"))
+    # soup.body.select_one(".neofitos").table.caption.string = (
+    #     "Bem vindo à SAJ — "
+    #     f'{meses(content["infodate"].month)}/{content["infodate"].year}'
+    # )
     soup.select_one(".neofitos").table.append(soup.new_tag("tbody"))
     soup.select_one(".neofitos").table.append(soup.new_tag("tfoot"))
     for neofito in content['neofitos']:
         row = soup.new_tag('tr')
         row.append(soup.new_tag("td"))
         row.append(soup.new_tag("td"))
-        # row.select_one("td:nth-of-type(1)").append(date.strftime("%d/%m"))
+        img = soup.new_tag(
+            'img',
+            attrs={
+                'src': "IMG/funcio-07.png",
+                'alt': 'icone de funcionário',
+                'width': 35,
+                'height': 35,
+            }
+        )
+
+        row.select_one("td:nth-of-type(1)").append(img)
         row.select_one("td:nth-of-type(2)").append(neofito)
         soup.select_one(".neofitos").table.tbody.append(row)
     return soup

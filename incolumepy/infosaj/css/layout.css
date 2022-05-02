@@ -5,6 +5,8 @@ body{
   margin-right: 100px;
   margin-left: 150px;
   text-align: justify;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+  font-size: xx-large;
 }
 /**/
 header{
@@ -21,16 +23,27 @@ hr{
 h2{
   padding-top: 3em;
   text-align: center;
+
 }
 h3{
   padding-top: 3em;
 }
+table{
+  font-size: inherit;
+}
 footer{
   display: flex;
   justify-content: space-around;
-  padding-top: 3em;
-  padding-bottom: 3em;
+  border-radius: 8px;
+  margin-top: 3em;
+  padding-top: 0em;
+  padding-bottom: 0em;
 }
+
+footer img{
+  width: 10em;
+}
+
 .aniversariantes{
   display: block;
   background-image: url("../IMG/textes-04.svg");
@@ -50,17 +63,25 @@ footer{
 }
 
 .aniversariantes tr:nth-child(even) {
-  background-color: rgba(128, 128, 128, 0.3);
+  /*background-color: rgba(128, 128, 128, 0.3);*/
 }
 .aniversariantes tr:nth-child(odd) {
-  background-color: rgba(128, 128, 0, 0.3);
+  /*background-color: rgba(128, 128, 0, 0.3);*/
 }
 
 .aniversariantes table {
-  width: 50%;
+  width: 20em;
   margin-left: auto;
   margin-right: auto;
 }
+.neofitos table{
+  /*width: 50%;
+  background-color: rgba(128, 128, 0, 0.3);*/
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
 .neofitos li {
   list-style-image: url("../IMG/funcio-07.png");
   background-size: 40px
