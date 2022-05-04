@@ -1,0 +1,22 @@
+version: "3.8"
+
+networks:
+  incolumenet:
+    external: false
+
+services:
+  webserver:
+    build: .
+    container_name: "apache"
+    hostname: "apache"
+    ports:
+      - '80:80'
+      - '443:443'
+
+    networks:
+      - incolumenet
+
+    volumes:
+      - "./:/var/www/localhost/htdocs/"
+
+#    restart: always
