@@ -1,9 +1,8 @@
 version: "3.8"
 
 networks:
-  inside:
+  incolumenet:
     external: false
-
 
 services:
   webserver:
@@ -11,8 +10,13 @@ services:
     container_name: "apache"
     hostname: "apache"
     ports:
-      - 80
-      - 443
+      - '80:80'
+      - '443:443'
+
+    networks:
+      - incolumenet
+
     volumes:
-      - ./volume/html:/usr/share/nginx/html
-    restart: always
+      - "./:/var/www/localhost/htdocs/"
+
+#    restart: always
