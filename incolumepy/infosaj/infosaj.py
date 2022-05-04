@@ -78,18 +78,18 @@ def gen_model_conf():
 def meses(mes: int = 0):
     """Get month name in portuguese language."""
     months = {
-        1: "Jan",
-        2: "Fev",
-        3: "Mar",
-        4: "Abr",
-        5: "Mai",
-        6: "Jun",
-        7: "Jul",
-        8: "Ago",
-        9: "Set",
-        10: "Out",
-        11: "Nov",
-        12: "Dez",
+        1: "jan.",
+        2: "fev.",
+        3: "mar.",
+        4: "abr.",
+        5: "maio",
+        6: "jun.",
+        7: "jul.",
+        8: "ago.",
+        9: "set.",
+        10: "out.",
+        11: "nov.",
+        12: "dez.",
     }
     if mes not in months:
         raise ValueError("Invalid month.")
