@@ -1,12 +1,13 @@
 body {
-    background: #004474;
-    /*
-    background-image: linear-gradient(to bottom right, navy, blue);
-    background-image: linear-gradient(to right, navy, white);
-    background-image: linear-gradient(to right, navy, #004474);
-    */
-    background-image: linear-gradient(to right, #004474, #0072b6);
-    color: #FFF;
+  background: #004474;
+  /*
+  background-image: linear-gradient(to bottom right, navy, blue);
+  background-image: linear-gradient(to right, navy, white);
+  background-image: linear-gradient(to right, navy, #004474);
+  */
+  background-image: linear-gradient(to right, #004474, #0072b6);
+  color: #FFF;
+  min-width: max-content;
 }
 
 /*div {
