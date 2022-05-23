@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from faker import Faker
 
 HTMLSKEL = (
-    "<!DOCTYPE soup>"
+    "<!DOCTYPE html>"
     '<soup lang="pt-br">'
     "<head>"
     '<meta name="viewport" '
@@ -262,7 +262,7 @@ def gen_infosaj(file: Union[str, Path] = ''):
     soup.body.append(soup.new_tag("span", attrs={"class": "num"}))
     soup.body.span.string = (
         "Brasília/DF, "
-        f"{meses(content['infodate'].month)}/"
+        f"{meses(content['infodate'].month)} "
         f"{content['infodate'].year} - Nº {content['infonum']}"
     )
 
