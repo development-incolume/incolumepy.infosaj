@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Automação Informativo SAJ's documentation!
+Documentação para Incolume Automação Informativo SAJ
 =====================================================
 
 .. toctree::
@@ -27,7 +27,6 @@ Contents
     prefacio
     usage
     api
-    HISTORY
     examples/EXAMPLES
     changelog-ref.rst
     development
