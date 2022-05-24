@@ -2,6 +2,7 @@
 
 __author__ = "@britodfbr"
 
+import inspect
 import logging
 import os
 from pathlib import Path
@@ -12,9 +13,11 @@ import yaml
 from bs4 import BeautifulSoup
 from faker import Faker
 
+logging.basicConfig(level=logging.DEBUG)
+
 HTMLSKEL = (
     "<!DOCTYPE html>"
-    '<soup lang="pt-br">'
+    '<html lang="pt-br">'
     "<head>"
     '<meta name="viewport" '
     'content="width=device-width, initial-scale=1">'
@@ -24,8 +27,10 @@ HTMLSKEL = (
     "</head>"
     "<body>"
     "<header></header>"
+    "<main></main>"
+    "<footer></footer>"
     "</body>"
-    "</soup>"
+    "</html>"
 )
 
 modelfile = Path.home().joinpath("infosaj", "model.yaml")
@@ -37,7 +42,7 @@ datamodel = {
     "infodate": fake.date_this_month(),
     "infonum": randint(1, 10),
     "title": "Informativo SAJ",
-    "header": "IMG/Header_teste_1-03.png",
+    "header": "IMG/header_2.png",
     "footer": [None, None, "IMG/acesso-a-infornacao.png"],
     "stylecss": ["css/color.css", "css/layout.css"],
     "soupname": "index.html",
@@ -68,7 +73,8 @@ def gen_model_conf():
     file.parent.mkdir(parents=True, exist_ok=True)
     result = "#! Arquivo de configuração para o 'informativo SAJ'\n".encode(
         "iso8859-1"
-    ) + yaml.dump(datamodel, sort_keys=False, encoding="iso8859-1")
+    )
+    result += yaml.dump(datamodel, sort_keys=False, encoding="iso8859-1")
     logging.debug(file)
     file.write_bytes(result)
     logging.debug(result)
@@ -78,18 +84,18 @@ def gen_model_conf():
 def meses(mes: int = 0):
     """Get month name in portuguese language."""
     months = {
-        1: "jan.",
-        2: "fev.",
-        3: "mar.",
-        4: "abr.",
-        5: "maio",
-        6: "jun.",
-        7: "jul.",
-        8: "ago.",
-        9: "set.",
-        10: "out.",
-        11: "nov.",
-        12: "dez.",
+        1: "jan",
+        2: "fev",
+        3: "mar",
+        4: "abr",
+        5: "mai",
+        6: "jun",
+        7: "jul",
+        8: "ago",
+        9: "set",
+        10: "out",
+        11: "nov",
+        12: "dez",
     }
     if mes not in months:
         raise ValueError("Invalid month.")
@@ -99,62 +105,94 @@ def meses(mes: int = 0):
 def stylecss(soup: BeautifulSoup, content: Dict[str, Any]):
     """Set style soup."""
     for css in content["stylecss"]:
+        logging.debug(f'{inspect.stack()[0][3]}: Adding style file {css}.')
         soup.style.append(f'@import url("{css}");')
     return soup
 
 
 def section_decisoes(soup: BeautifulSoup, content: Dict[str, Any]):
     """Set decisoes section."""
-    soup.body.select_one('.decisoes').append(soup.new_tag("h2"))
-    soup.body.select_one('.decisoes').h2.string = (
-        "Decisões Judiciais Relevantes")
+    if not content.get('decisões'):
+        return soup
 
+    soup.select_one('.decisoes').append(soup.new_tag("h2"))
+    soup.select_one('.decisoes').h2.string = (
+        "Decisões Judiciais Relevantes"
+    )
+    soup.select_one('.decisoes').append(
+        soup.new_tag('div', attrs={'class': 'row'})
+    )
     for i, decisoes in enumerate(content["decisões"], start=1):
         logging.debug(i, decisoes)
-        soup.body.select_one('.decisoes') \
-            .append(soup.new_tag("div", attrs={'class': 'decisao'}))
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})") \
-            .append(soup.new_tag("h3"))
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})") \
-            .h3.string = decisoes["title"]
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})") \
-            .append(soup.new_tag("span", attrs={"id": "relator"}))
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})") \
-            .span.string = f'Relator(a): {decisoes["relator"]}'
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})") \
-            .append(soup.new_tag("p"))
-        soup.body.select_one('.decisoes') \
-            .select_one(f"div:nth-of-type({i})").p.string = decisoes["resumo"]
+
+    #     soup.select_one('.decisoes') \
+    #         .append(soup.new_tag("div", attrs={'class': 'decisao'}))
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})") \
+    #         .append(soup.new_tag("h3"))
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})") \
+    #         .h3.string = decisoes["title"]
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})") \
+    #         .append(soup.new_tag("span", attrs={"id": "relator"}))
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})") \
+    #         .span.string = f'Relator(a): {decisoes["relator"]}'
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})") \
+    #         .append(soup.new_tag("p"))
+    #     soup.select_one('.decisoes') \
+    #         .select_one(f"div:nth-of-type({i})").p.string = decisoes["resumo"]
+    #     link = decisoes.get("linkaddress")
+    #     msg = decisoes.get("message")
+    #     if link:
+    #         soup.select_one('.decisoes') \
+    #             .select_one(f"div:nth-of-type({i})") \
+    #             .append(soup.new_tag("span", attrs={"id": "link"}))
+    #         a = soup.new_tag("a", attrs={"href": link})
+    #         a.string = decisoes.get("linktext")
+    #         soup.select_one('.decisoes') \
+    #             .select_one(f"div:nth-of-type({i})") \
+    #             .select_one("#link").append("Para leitura completa acesse:")
+    #         if msg:
+    #             soup.select_one('.decisoes') \
+    #                 .select_one(f"div:nth-of-type({i})") \
+    #                 .select_one("#link").string = msg
+    #         soup.select_one('.decisoes') \
+    #             .select_one(f"div:nth-of-type({i})") \
+    #             .select_one("#link").append(a)
+        col = soup.new_tag('div', attrs={'class': 'column'})
+        card = soup.new_tag('div', attrs={'class': 'decisao'})
+        card.append(soup.new_tag('h3'))
+        card.h3.string = decisoes["title"]
+        card.append(soup.new_tag("span", attrs={"id": "relator"}))
+        card.span.string = f'Relator(a): {decisoes["relator"]}'
+        card.append(soup.new_tag("p"))
+        card.p.string = decisoes["resumo"]
         link = decisoes.get("linkaddress")
         msg = decisoes.get("message")
         if link:
-            soup.body.select_one('.decisoes') \
-                .select_one(f"div:nth-of-type({i})") \
-                .append(soup.new_tag("span", attrs={"id": "link"}))
+            card.append(soup.new_tag("span", attrs={"id": "link"}))
             a = soup.new_tag("a", attrs={"href": link})
             a.string = decisoes.get("linktext")
-            soup.body.select_one('.decisoes') \
-                .select_one(f"div:nth-of-type({i})") \
-                .select_one("#link").append("Para leitura completa acesse:")
+            card.select_one("#link").append("Para leitura completa acesse:")
             if msg:
-                soup.body.select_one('.decisoes') \
-                    .select_one(f"div:nth-of-type({i})") \
-                    .select_one("#link").string = msg
-            soup.body.select_one('.decisoes') \
-                .select_one(f"div:nth-of-type({i})") \
-                .select_one("#link").append(a)
-        soup.body.select_one('.decisoes') \
-            .append(soup.new_tag("hr"))
+                card.select_one("#link").string = msg
+            card.select_one("#link").append(a)
+
+        col.append(card)
+        col.append(soup.new_tag("hr"))
+        soup.select_one('.decisoes').select_one('.row').append(col)
     return soup
 
 
 def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
     """Set aniversariantes table."""
+
+    if not content.get('aniversariantes'):
+        return soup
+
     soup.body.select_one(".aniversariantes").append(soup.new_tag("h2"))
     soup.body.select_one(
         ".aniversariantes"
@@ -175,7 +213,9 @@ def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
     soup.select_one(".aniversariantes").table.append(soup.new_tag("tbody"))
     soup.select_one(".aniversariantes").table.append(soup.new_tag("tfoot"))
     for date, name in sorted(content["aniversariantes"]):
-        logging.debug(date.strftime("%d/%m"), name)
+        logging.debug(
+            f'{inspect.stack()[0][3]} {date.strftime("%d/%m")} {name}'
+        )
         row = soup.new_tag("tr")
         row.append(soup.new_tag("td"))
         row.append(soup.new_tag("td"))
@@ -187,7 +227,7 @@ def section_aniver(soup: BeautifulSoup, content: Dict[str, Any]):
 
 def section_neofitos(soup: BeautifulSoup, content: List[str]):
     """Set neofitos table"""
-    if not content['neofitos']:
+    if not content.get('neofitos'):
         return soup
 
     logging.debug('section_neofitos')
@@ -252,34 +292,34 @@ def gen_infosaj(file: Union[str, Path] = ''):
     logging.debug(content)
     soup = BeautifulSoup(HTMLSKEL, "html5lib")
     stylecss(soup, content)
-    soup.title = content['title']
+    soup.title.string = content.get('title')
     soup.header.append(soup.new_tag("figure"))
     soup.header.figure.append(
         soup.new_tag(
             "img", attrs={"src": f"{content['header']}", "width": "100%"}
         )
     )
-    soup.body.append(soup.new_tag("span", attrs={"class": "num"}))
-    soup.body.span.string = (
+    soup.header.append(soup.new_tag("span", attrs={"class": "num"}))
+    soup.header.span.string = (
         "Brasília/DF, "
         f"{meses(content['infodate'].month)} "
         f"{content['infodate'].year} - Nº {content['infonum']}"
     )
 
     # decisoes
-    soup.body.append(soup.new_tag("div", attrs={"class": "decisoes"}))
+    soup.main.append(soup.new_tag("div", attrs={"class": "decisoes"}))
     section_decisoes(soup, content)
 
     # Aniversariantes
-    soup.body.append(soup.new_tag("div", attrs={"class": "aniversariantes"}))
+    soup.main.append(soup.new_tag("div", attrs={"class": "aniversariantes"}))
     section_aniver(soup, content)
 
     # Neofitos
-    soup.body.append(soup.new_tag("div", attrs={"class": "neofitos"}))
+    soup.main.append(soup.new_tag("div", attrs={"class": "neofitos"}))
     section_neofitos(soup, content)
 
     # Footer
-    soup.body.append(soup.new_tag("footer"))
+    # soup.body.append(soup.new_tag("footer"))
     for i, elem in enumerate(content["footer"], start=1):
         # print(i, elem)
         soup.footer.append(soup.new_tag("div"))
@@ -316,4 +356,7 @@ if __name__ == "__main__":  # pragma: no cover
     # gen_infosaj(Path('/tmp/test_load_model_envvar/model.yaml'))
     # print(gen_model_conf())
     # print(gen_infosaj())
-    print(gen_infosaj(Path.home().joinpath('infosaj', 'model.yml')))
+    # print(gen_infosaj(Path.home().joinpath('infosaj', 'model.yml')))
+    model = Path('/tmp/test_load_model_envvar/model.yml')
+    # gen_infosaj(model)
+    print(gen_infosaj(model))
