@@ -14,13 +14,23 @@ body {
   background: rgba(0, 128, 0, 0.3)
 }
 */
+
+.aniversariantes tr:nth-child(even) {
+  /*background-color: rgba(128, 128, 128, 0.3);*/
+}
+.aniversariantes tr:nth-child(odd) {
+  /*background-color: rgba(128, 128, 0, 0.3);*/
+}
+
 footer{
   background-color: #FFF;
 }
 
 footer div:nth-of-type(2n+1) {
+  /*
   background-color: #CCC;
   opacity: 0.3;
+  */
 }
 
 /* unvisited link */

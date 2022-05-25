@@ -79,13 +79,6 @@ footer img{
   background-size: contain;
 }
 
-.aniversariantes tr:nth-child(even) {
-  /*background-color: rgba(128, 128, 128, 0.3);*/
-}
-.aniversariantes tr:nth-child(odd) {
-  /*background-color: rgba(128, 128, 0, 0.3);*/
-}
-
 .aniversariantes table {
   width: 20em;
   margin-left: auto;
