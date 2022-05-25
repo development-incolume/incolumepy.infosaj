@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Calibri';
+    src: url('Calibri Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Calistoga';
+    src: url('Calistoga/Calistoga-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'OpenSans';
+    src: url('Open_Sans/OpenSans-Italic-VariablesFont_wdth,wght.ttf') format('ttf'),
+         url('Open_Sans/OpenSans-VariablesFont_wdth,wght.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}

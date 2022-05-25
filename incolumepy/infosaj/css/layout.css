@@ -1,3 +1,7 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@200&family=Open+Sans&family=Varela+Round&display=swap');
+*/
+@import url('./fonts.css')
+
 body{
   /*margin: 25px 50px 75px 100px;*/
   margin-top: 100px;
