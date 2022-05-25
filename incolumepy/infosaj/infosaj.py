@@ -124,44 +124,6 @@ def section_decisoes(soup: BeautifulSoup, content: Dict[str, Any]):
     )
     for i, decisoes in enumerate(content["decisões"], start=1):
         logging.debug(i, decisoes)
-
-    #     soup.select_one('.decisoes') \
-    #         .append(soup.new_tag("div", attrs={'class': 'decisao'}))
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})") \
-    #         .append(soup.new_tag("h3"))
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})") \
-    #         .h3.string = decisoes["title"]
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})") \
-    #         .append(soup.new_tag("span", attrs={"id": "relator"}))
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})") \
-    #         .span.string = f'Relator(a): {decisoes["relator"]}'
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})") \
-    #         .append(soup.new_tag("p"))
-    #     soup.select_one('.decisoes') \
-    #         .select_one(f"div:nth-of-type({i})").p.string = decisoes["resumo"]
-    #     link = decisoes.get("linkaddress")
-    #     msg = decisoes.get("message")
-    #     if link:
-    #         soup.select_one('.decisoes') \
-    #             .select_one(f"div:nth-of-type({i})") \
-    #             .append(soup.new_tag("span", attrs={"id": "link"}))
-    #         a = soup.new_tag("a", attrs={"href": link})
-    #         a.string = decisoes.get("linktext")
-    #         soup.select_one('.decisoes') \
-    #             .select_one(f"div:nth-of-type({i})") \
-    #             .select_one("#link").append("Para leitura completa acesse:")
-    #         if msg:
-    #             soup.select_one('.decisoes') \
-    #                 .select_one(f"div:nth-of-type({i})") \
-    #                 .select_one("#link").string = msg
-    #         soup.select_one('.decisoes') \
-    #             .select_one(f"div:nth-of-type({i})") \
-    #             .select_one("#link").append(a)
         col = soup.new_tag('div', attrs={'class': 'column'})
         card = soup.new_tag('div', attrs={'class': 'decisao'})
         card.append(soup.new_tag('h3'))
@@ -182,7 +144,7 @@ def section_decisoes(soup: BeautifulSoup, content: Dict[str, Any]):
             card.select_one("#link").append(a)
 
         col.append(card)
-        col.append(soup.new_tag("hr"))
+        # col.append(soup.new_tag("hr"))
         soup.select_one('.decisoes').select_one('.row').append(col)
     return soup
 
