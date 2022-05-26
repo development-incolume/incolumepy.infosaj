@@ -58,6 +58,11 @@ datamodel = {
         }
         for x in range(1, 6)
     ],
+    "neofitos": [
+        'José Francisco da Silva',
+        'José da Silva',
+        'Francisco da Silva'
+    ]
 }
 
 
@@ -212,7 +217,8 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
     # )
     soup.select_one(".neofitos").table.append(soup.new_tag("tbody"))
     soup.select_one(".neofitos").table.append(soup.new_tag("tfoot"))
-    for neofito in content['neofitos']:
+
+    for neofito in sorted(content['neofitos']):
         row = soup.new_tag('tr')
         row.append(soup.new_tag("td"))
         row.append(soup.new_tag("td"))
@@ -225,7 +231,7 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
                 'height': 35,
             }
         )
-
+        logging.debug(f'{neofito}')
         row.select_one("td:nth-of-type(1)").append(img)
         row.select_one("td:nth-of-type(2)").append(neofito)
         soup.select_one(".neofitos").table.tbody.append(row)
