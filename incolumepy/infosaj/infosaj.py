@@ -43,7 +43,7 @@ datamodel = {
     "infonum": randint(1, 10),
     "title": "Informativo SAJ",
     "header": "IMG/header_2.png",
-    "footer": [None, None, "IMG/acesso-a-infornacao.png"],
+    "footer": [None, "IMG/Logo-CEJ.svg", "IMG/acesso-a-infornacao.png"],
     "stylecss": ["css/color.css", "css/layout.css"],
     "soupname": "index.html",
     "aniversariantes": aniversariantes,
