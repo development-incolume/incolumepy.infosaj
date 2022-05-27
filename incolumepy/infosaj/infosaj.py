@@ -66,7 +66,7 @@ datamodel = {
 }
 
 
-def gen_model_conf():
+def gen_model_conf(filecf: Union[str, Path] = ''):
     """
     Generate infosaj/model.yaml with encode ISO8859-1.
 
@@ -74,16 +74,18 @@ def gen_model_conf():
     directory; else into $HOME/infosaj/model.yaml.
     """
     temp = os.environ.get("INCOLUMEPY_INFOSAJ")
-    file = Path(temp).with_name("model.yaml") if temp else modelfile
-    file.parent.mkdir(parents=True, exist_ok=True)
+    # filecf = Path(temp).with_name("model.yaml") if temp else modelfile
+    filecf = filecf if filecf else temp or modelfile
+    filecf = Path(filecf)
+    filecf.parent.mkdir(parents=True, exist_ok=True)
     result = "#! Arquivo de configuração para o 'informativo SAJ'\n".encode(
         "iso8859-1"
     )
     result += yaml.dump(datamodel, sort_keys=False, encoding="iso8859-1")
-    logging.debug(file)
-    file.write_bytes(result)
+    logging.debug(filecf)
+    filecf.write_bytes(result)
     logging.debug(result)
-    return file
+    return filecf
 
 
 def meses(mes: int = 0):
@@ -238,24 +240,20 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
     return soup
 
 
-def set_entrance(file: Union[str, Path] = ""):
-    temp = os.environ.get("INCOLUMEPY_INFOSAJ")
+def set_entrance(fileconf: Union[str, Path] = ""):
+    temp = fileconf or os.environ.get("INCOLUMEPY_INFOSAJ")
+    temp = Path(temp)
     try:
-        _ = Path(temp).with_name('model.yaml').read_bytes()
-        return Path(temp).with_name('model.yaml')
-    except:
-        pass
-    try:
-        _ = Path(file).read_bytes()
-        return Path(file)
-    except:
+        _ = temp.read_bytes()
+        return temp
+    except (FileNotFoundError, FileExistsError):
         pass
     return gen_model_conf()
 
 
-def gen_infosaj(file: Union[str, Path] = ''):
+def gen_infosaj(fileconfig: Union[str, Path] = '', ):
     """Generate infosaj soup file."""
-    fin = set_entrance(file)
+    fin = set_entrance(fileconfig)
     content = yaml.full_load(fin.read_text(encoding="iso8859-1"))
     logging.debug(content)
     soup = BeautifulSoup(HTMLSKEL, "html5lib")
@@ -299,9 +297,7 @@ def gen_infosaj(file: Union[str, Path] = ''):
                 soup.new_tag("img", attrs={"src": elem})
             )
 
-    filename = Path(__file__).with_name(
-        content.get("soupname") or "index.html"
-    )
+    filename = fin.with_name(content.get("soupname") or "index.html")
     filename.write_bytes(soup.prettify(encoding="iso8859-1"))
     return filename.as_posix()
 
@@ -325,6 +321,11 @@ if __name__ == "__main__":  # pragma: no cover
     # print(gen_model_conf())
     # print(gen_infosaj())
     # print(gen_infosaj(Path.home().joinpath('infosaj', 'model.yml')))
-    model = Path('/tmp/test_load_model_envvar/model.yml')
+    # model = Path('/tmp/test_load_model_envvar/model.yml')
     # gen_infosaj(model)
-    print(gen_infosaj(model))
+    # model = Path(__file__).parents[2].joinpath('model.yml')
+    model = Path(__file__).parent.joinpath('model.yml')
+    gen_model_conf(model)
+    logging.debug(model)
+    logging.debug(gen_infosaj(model))
+
