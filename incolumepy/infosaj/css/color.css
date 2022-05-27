@@ -1,11 +1,18 @@
+:root {
+  --orange: #f78b00;
+  --darkblue: #004474;
+  --blue: #0072b6;
+  --gray: #DDD;
+}
+
 body {
-  background: #004474;
+  background: var(--darkblue);
   /*
   background-image: linear-gradient(to bottom right, navy, blue);
   background-image: linear-gradient(to right, navy, white);
   background-image: linear-gradient(to right, navy, #004474);
   */
-  background-image: linear-gradient(to right, #004474, #0072b6);
+  background-image: linear-gradient(to right, var(--darkblue), var(--blue));
   color: #FFF;
   min-width: max-content;
 }
