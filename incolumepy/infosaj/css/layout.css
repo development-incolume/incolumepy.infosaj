@@ -1,3 +1,15 @@
+/*
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@200&family=Open+Sans&family=Varela+Round&display=swap');
+*/
+@import url('./fonts.css')
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
 body{
   /*margin: 25px 50px 75px 100px;*/
   margin-top: 100px;
@@ -5,14 +17,15 @@ body{
   margin-right: 100px;
   margin-left: 150px;
   text-align: justify;
-  font-family: Calibri, Arial, Helvetica, sans-serif;
+  /*font-family: Calibri, Arial, Helvetica, sans-serif;*/
+  font-family: Calibri;
   font-size: xx-large;
   min-width: 400px;
 }
 /**/
 
 header{
-    padding-left: -3em;
+  /*padding-left: -3em;*/
 }
 
 header figure img{
@@ -32,12 +45,12 @@ hr{
 }
 
 h2{
-  padding-top: 3em;
+  padding-top: 1em;
   text-align: center;
 }
 
 h3{
-  padding-top: 3em;
+  padding-top: 1em;
 }
 
 table{
@@ -54,7 +67,7 @@ footer{
 }
 
 footer img{
-  width: 10em;
+  width: 5em;
 }
 
 .aniversariantes{
@@ -75,18 +88,20 @@ footer img{
   background-size: contain;
 }
 
-.aniversariantes tr:nth-child(even) {
-  /*background-color: rgba(128, 128, 128, 0.3);*/
-}
-.aniversariantes tr:nth-child(odd) {
-  /*background-color: rgba(128, 128, 0, 0.3);*/
-}
-
 .aniversariantes table {
-  width: 20em;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
+
 }
+.aniversariantes table td:nth-child(1){
+  width: 40%;
+  /*text-align: right;*/
+  padding-left: 15%;
+}
+.aniversariantes table td:nth-child(2){
+}
+
 .neofitos table{
   /*width: 50%;
   background-color: rgba(128, 128, 0, 0.3);*/
@@ -99,6 +114,43 @@ footer img{
   list-style-image: url("../IMG/funcio-07.png");
   background-size: 40px
 }
+
 caption {
   caption-side: bottom;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+}
+/* Float four columns side by side */
+.column {
+  flex: 100%;
+  padding-left: 6em;
+  padding-bottom: .6em;
+  border-bottom: solid;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 400px) {
+  .column {
+    flex: 100%;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+.desicao{
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
