@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolumepy.infosaj"
-version = "0.4.0"
+version = "0.5.0-alpha.1"
 description = "Gerador do Informativo SAJ em HTML."
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 packages = [
@@ -38,6 +38,9 @@ incolumepy-utils = 'incolumepy.infosaj.main:run'
 
 [tool.poetry.dependencies]
 python = "^3.8"
+Faker = "^13.3.4"
+PyYAML = "^6.0"
+html5lib = "^1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
@@ -57,6 +60,7 @@ Sphinx = "^4.5.0"
 tox = "^3.24.5"
 types-toml = "^0.10.4"
 "incolumepy.utils" = {git = "https://gitlab.com/development-incolume/incolumepy.utils.git", rev = "master"}
+types-PyYAML = "^6.0.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

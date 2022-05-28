@@ -1,0 +1,61 @@
+:root {
+  --orange: #f78b00;
+  --darkblue: #004474;
+  --blue: #0072b6;
+  --gray: #DDD;
+}
+
+body {
+  background: var(--darkblue);
+  /*
+  background-image: linear-gradient(to bottom right, navy, blue);
+  background-image: linear-gradient(to right, navy, white);
+  background-image: linear-gradient(to right, navy, #004474);
+  */
+  background-image: linear-gradient(to right, var(--darkblue), var(--blue));
+  color: #FFF;
+  min-width: max-content;
+}
+
+/*div {
+  background: rgba(0, 128, 0, 0.3)
+}
+*/
+
+.aniversariantes tr:nth-child(even) {
+  /*background-color: rgba(128, 128, 128, 0.3);*/
+}
+.aniversariantes tr:nth-child(odd) {
+  /*background-color: rgba(128, 128, 0, 0.3);*/
+}
+
+footer{
+  background-color: #FFF;
+}
+
+footer div:nth-of-type(2n+1) {
+  /*
+  background-color: #CCC;
+  opacity: 0.3;
+  */
+}
+
+/* unvisited link */
+a:link {
+  color: #FFF;
+}
+
+/* visited link */
+a:visited {
+  color: #DDD;
+}
+
+/* mouse over link */
+a:hover {
+  color: #AAA;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
