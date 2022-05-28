@@ -80,10 +80,14 @@ def test_load_model_envvar():
 def test_set_entrance_envvar():
     """Test if load model.yaml from envvar."""
     expected = Path(gettempdir()).joinpath(stack()[0][3], "model.yaml")
+    expected.parent.mkdir(parents=True, exist_ok=True)
+
     os.environ["INCOLUMEPY_INFOSAJ"] = expected.with_name('a.html').as_posix()
-    with pytest.raises(AssertionError):
+    with pytest.raises(TypeError, match='Type File not yaml'):
         assert set_entrance() == Path.home().joinpath('infosaj', 'model.yaml')
+
     expected.write_text('')
+    os.environ["INCOLUMEPY_INFOSAJ"] = expected.as_posix()
     assert set_entrance() == expected
     expected.unlink(missing_ok=True)
 
@@ -92,11 +96,11 @@ def test_set_entrance_envvar():
     "entrance expected".split(),
     [
         (0, None),
-        (1, "Jan"),
-        (5, "Mai"),
-        (6, "Jun"),
-        (8, "Ago"),
-        (12, "Dez"),
+        (1, "jan"),
+        (5, "mai"),
+        (6, "jun"),
+        (8, "ago"),
+        (12, "dez"),
         (13, None),
         (23, None),
     ],
@@ -146,7 +150,6 @@ def test_section_aniver():
     expected = '<html><head></head><body><div class="aniversariantes">' \
                '<h2>Aniversariantes do Mês</h2><table><thead><tr><th></th>' \
                '<th></th></tr></thead>' \
-               '<caption>Aniversariantes SAJ — Jun/2022</caption>' \
                '<tbody><tr><td>05/07</td><td>Ana Brito</td></tr><tr>' \
                '<td>20/06</td><td>Pedro Silva</td></tr></tbody><tfoot>' \
                '</tfoot></table></div></body></html>'
