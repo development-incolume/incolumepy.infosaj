@@ -4,9 +4,10 @@
 @import url('./fonts.css')
 
 *{
-  margin: 0 0;
-  padding: 0 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  outline: none;
 }
 
 body{
@@ -88,10 +89,19 @@ footer img{
 }
 
 .aniversariantes table {
-  width: 20em;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
+
 }
+.aniversariantes table td:nth-child(1){
+  width: 40%;
+  /*text-align: right;*/
+  padding-left: 15%;
+}
+.aniversariantes table td:nth-child(2){
+}
+
 .neofitos table{
   /*width: 50%;
   background-color: rgba(128, 128, 0, 0.3);*/
@@ -116,7 +126,10 @@ caption {
 }
 /* Float four columns side by side */
 .column {
-  flex: 50%;
+  flex: 100%;
+  padding-left: 6em;
+  padding-bottom: .6em;
+  border-bottom: solid;
 }
 
 /* Responsive columns */
