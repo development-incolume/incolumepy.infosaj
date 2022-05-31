@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolumepy.infosaj"
-version = "0.5.0-alpha.1"
+version = "0.5.0"
 description = "Gerador do Informativo SAJ em HTML."
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 packages = [

@@ -243,6 +243,9 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
 def set_entrance(fileconf: Union[str, Path] = ""):
     temp = fileconf or os.environ.get("INCOLUMEPY_INFOSAJ")
     temp = Path(temp)
+    if temp.suffix not in ['.yml', '.yaml']:
+        raise TypeError('Type File not yaml')
+
     try:
         _ = temp.read_bytes()
         return temp
