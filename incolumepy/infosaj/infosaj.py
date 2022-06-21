@@ -257,7 +257,8 @@ def set_entrance(fileconf: Union[str, Path] = ""):
 def gen_infosaj(fileconfig: Union[str, Path] = '', ):
     """Generate infosaj soup file."""
     fin = set_entrance(fileconfig)
-    content = yaml.full_load(fin.read_text(encoding="iso8859-1"))
+    # content = yaml.full_load(fin.read_text(encoding="iso8859-1"))
+    content = yaml.full_load(fin.read_bytes())
     logging.debug(content)
     soup = BeautifulSoup(HTMLSKEL, "html5lib")
     stylecss(soup, content)
@@ -328,7 +329,7 @@ if __name__ == "__main__":  # pragma: no cover
     # gen_infosaj(model)
     # model = Path(__file__).parents[2].joinpath('model.yml')
     model = Path(__file__).parent.joinpath('model.yml')
-    gen_model_conf(model)
+    # gen_model_conf(model)
     logging.debug(model)
     logging.debug(gen_infosaj(model))
 
