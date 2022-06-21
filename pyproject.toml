@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "incolumepy.infosaj"
-version = "0.6.0-alpha.0"
+version = "0.6.0-alpha.1"
 description = "Gerador do Informativo SAJ em HTML."
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 packages = [
   {include = "incolumepy", from=""},
 ]
+
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'Operating System :: OS Independent',
@@ -22,9 +23,9 @@ include = [
   'docs/CONTRIBUTORS.rst',
 ]
 exclude = [
-  "examples/",
-  "ez_setup",
-  "my_package/excluded.py",
+  "incolumepy/infosaj/compose.yml",
+  "incolumepy/infosaj/Dockerfile",
+  "incolumepy/infosaj/insumos/",
   "tests/",
 ]
 
@@ -32,9 +33,6 @@ exclude = [
 'Source' = 'https://github.com/incolumepy/incolumepy.infosaj'
 'Tracker' = 'https://github.com/incolumepy/incolumepy.infosaj/issues'
 'Oficial' = 'https://github.com/incolumepy/incolumepy.infosaj'
-
-[tool.poetry.scripts]
-incolumepy-utils = 'incolumepy.infosaj.main:run'
 
 [tool.poetry.dependencies]
 python = "^3.8"

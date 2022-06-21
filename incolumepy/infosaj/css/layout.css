@@ -18,7 +18,7 @@ body{
   margin-left: 150px;
   text-align: justify;
   /*font-family: Calibri, Arial, Helvetica, sans-serif;*/
-  font-family: Calibri;
+  font-family: Calibri, sans-serif;
   font-size: xx-large;
   min-width: 400px;
 }
@@ -72,7 +72,7 @@ footer img{
 
 .aniversariantes{
   display: block;
-  background-image: url("../IMG/textes-04.svg");
+  background-image: url("../img/textes-04.svg");
   background-color: background: rgba(128, 128, 128, 0.3);
   position: relative;
   background-position: center;
@@ -111,7 +111,7 @@ footer img{
 }
 
 .neofitos li {
-  list-style-image: url("../IMG/funcio-07.png");
+  list-style-image: url("../img/funcio-07.png");
   background-size: 40px
 }
 
