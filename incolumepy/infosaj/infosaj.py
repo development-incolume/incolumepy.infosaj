@@ -59,11 +59,14 @@ datamodel = {
         }
         for x in range(1, 6)
     ],
-    "neofitos": [
-        'José Francisco da Silva',
-        'José da Silva',
-        'Francisco da Silva'
-    ]
+    "neofitos": {
+        "img": "img/funcio-07.png",
+        "nomes": [
+            'José Francisco da Silva',
+            'José da Silva',
+            'Francisco da Silva'
+        ]
+    }
 }
 
 
