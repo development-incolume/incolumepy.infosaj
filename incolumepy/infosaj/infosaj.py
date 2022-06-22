@@ -224,14 +224,14 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
     soup.select_one(".neofitos").table.append(soup.new_tag("tbody"))
     soup.select_one(".neofitos").table.append(soup.new_tag("tfoot"))
 
-    for neofito in sorted(content['neofitos']):
+    for neofito in sorted(content['neofitos']['nomes']):
         row = soup.new_tag('tr')
         row.append(soup.new_tag("td"))
         row.append(soup.new_tag("td"))
         img = soup.new_tag(
             'img',
             attrs={
-                'src': "IMG/funcio-07.png",
+                'src': content['neofitos']['img'],
                 'alt': 'icone de funcionário',
                 'width': 35,
                 'height': 35,
@@ -337,6 +337,6 @@ if __name__ == "__main__":  # pragma: no cover
     # model = Path(__file__).parents[2].joinpath('model.yml')
     model = Path().resolve().parents[1].joinpath('datafiles', 'model.yml')
     logging.debug(model)
-    # logging.debug(gen_model_conf(model))
-    logging.debug(gen_infosaj(model))
+    logging.debug(gen_model_conf(model))
+    # logging.debug(gen_infosaj(model))
 
