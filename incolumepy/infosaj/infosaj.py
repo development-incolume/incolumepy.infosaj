@@ -5,6 +5,7 @@ __author__ = "@britodfbr"
 import inspect
 import logging
 import os
+import shutil
 from pathlib import Path
 from random import randint
 from typing import Any, Dict, Union, List
@@ -58,11 +59,14 @@ datamodel = {
         }
         for x in range(1, 6)
     ],
-    "neofitos": [
-        'José Francisco da Silva',
-        'José da Silva',
-        'Francisco da Silva'
-    ]
+    "neofitos": {
+        "img": "img/funcio-07.png",
+        "nomes": [
+            'José Francisco da Silva',
+            'José da Silva',
+            'Francisco da Silva'
+        ]
+    }
 }
 
 
@@ -78,12 +82,11 @@ def gen_model_conf(filecf: Union[str, Path] = ''):
     filecf = filecf if filecf else temp or modelfile
     filecf = Path(filecf)
     filecf.parent.mkdir(parents=True, exist_ok=True)
-    result = "#! Arquivo de configuração para o 'informativo SAJ'\n".encode(
-        "iso8859-1"
-    )
-    result += yaml.dump(datamodel, sort_keys=False, encoding="iso8859-1")
+    result = "#! Arquivo de configuração para o 'informativo SAJ'\n"
+    result += yaml.dump(datamodel, sort_keys=False)
+    logging.debug(result)
     logging.debug(filecf)
-    filecf.write_bytes(result)
+    filecf.write_text(result)
     logging.debug(result)
     return filecf
 
@@ -220,14 +223,14 @@ def section_neofitos(soup: BeautifulSoup, content: List[str]):
     soup.select_one(".neofitos").table.append(soup.new_tag("tbody"))
     soup.select_one(".neofitos").table.append(soup.new_tag("tfoot"))
 
-    for neofito in sorted(content['neofitos']):
+    for neofito in sorted(content['neofitos']['nomes']):
         row = soup.new_tag('tr')
         row.append(soup.new_tag("td"))
         row.append(soup.new_tag("td"))
         img = soup.new_tag(
             'img',
             attrs={
-                'src': "IMG/funcio-07.png",
+                'src': content['neofitos']['img'],
                 'alt': 'icone de funcionário',
                 'width': 35,
                 'height': 35,
@@ -303,6 +306,9 @@ def gen_infosaj(fileconfig: Union[str, Path] = '', ):
 
     filename = fin.with_name(content.get("soupname") or "index.html")
     filename.write_bytes(soup.prettify(encoding="iso8859-1"))
+    shutil.copytree(Path(__file__).parent.joinpath('css'), filename.parent.joinpath('css'), dirs_exist_ok=True)
+    shutil.copytree(Path(__file__).parent.joinpath('fonts'), filename.parent.joinpath('fonts'), dirs_exist_ok=True)
+    shutil.copytree(Path(__file__).parent.joinpath('img'), filename.parent.joinpath('img'), dirs_exist_ok=True)
     return filename.as_posix()
 
 
@@ -328,8 +334,8 @@ if __name__ == "__main__":  # pragma: no cover
     # model = Path('/tmp/test_load_model_envvar/model.yml')
     # gen_infosaj(model)
     # model = Path(__file__).parents[2].joinpath('model.yml')
-    model = Path(__file__).parent.joinpath('model.yml')
-    # gen_model_conf(model)
+    model = Path().resolve().parents[1].joinpath('datafiles', 'model.yml')
     logging.debug(model)
-    logging.debug(gen_infosaj(model))
+    logging.debug(gen_model_conf(model))
+    # logging.debug(gen_infosaj(model))
 
