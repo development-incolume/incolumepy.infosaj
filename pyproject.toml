@@ -29,6 +29,8 @@ exclude = [
   "tests/",
 ]
 
+[tool.poetry.scripts]
+
 [tool.poetry.urls]
 'Source' = 'https://github.com/incolumepy/incolumepy.infosaj'
 'Tracker' = 'https://github.com/incolumepy/incolumepy.infosaj/issues'
@@ -39,6 +41,12 @@ python = "^3.8"
 Faker = "^13.3.4"
 PyYAML = "^6.0"
 html5lib = "^1.1"
+"incolumepy.infosaj-cli" = {git = "https://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@github.com/incolumepy/incolumepy.infosaj-cli.git", branch='dev', optional=true}
+
+
+[tool.poetry.extras]
+cli = ["incolumepy.infosaj-cli"]
+all = ["incolumepy.infosaj-cli"]
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
