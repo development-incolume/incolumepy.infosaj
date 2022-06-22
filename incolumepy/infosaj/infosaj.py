@@ -82,12 +82,11 @@ def gen_model_conf(filecf: Union[str, Path] = ''):
     filecf = filecf if filecf else temp or modelfile
     filecf = Path(filecf)
     filecf.parent.mkdir(parents=True, exist_ok=True)
-    result = "#! Arquivo de configuração para o 'informativo SAJ'\n".encode(
-        "iso8859-1"
-    )
-    result += yaml.dump(datamodel, sort_keys=False, encoding="iso8859-1")
+    result = "#! Arquivo de configuração para o 'informativo SAJ'\n"
+    result += yaml.dump(datamodel, sort_keys=False)
+    logging.debug(result)
     logging.debug(filecf)
-    filecf.write_bytes(result)
+    filecf.write_text(result)
     logging.debug(result)
     return filecf
 
