@@ -5,6 +5,7 @@ __author__ = "@britodfbr"
 import inspect
 import logging
 import os
+import shutil
 from pathlib import Path
 from random import randint
 from typing import Any, Dict, Union, List
@@ -303,6 +304,9 @@ def gen_infosaj(fileconfig: Union[str, Path] = '', ):
 
     filename = fin.with_name(content.get("soupname") or "index.html")
     filename.write_bytes(soup.prettify(encoding="iso8859-1"))
+    shutil.copytree(Path(__file__).parent.joinpath('css'), filename.parent.joinpath('css'), dirs_exist_ok=True)
+    shutil.copytree(Path(__file__).parent.joinpath('fonts'), filename.parent.joinpath('fonts'), dirs_exist_ok=True)
+    shutil.copytree(Path(__file__).parent.joinpath('img'), filename.parent.joinpath('img'), dirs_exist_ok=True)
     return filename.as_posix()
 
 
@@ -328,8 +332,8 @@ if __name__ == "__main__":  # pragma: no cover
     # model = Path('/tmp/test_load_model_envvar/model.yml')
     # gen_infosaj(model)
     # model = Path(__file__).parents[2].joinpath('model.yml')
-    model = Path(__file__).parent.joinpath('model.yml')
-    # gen_model_conf(model)
+    model = Path().resolve().parents[1].joinpath('datafiles', 'model.yml')
     logging.debug(model)
+    # logging.debug(gen_model_conf(model))
     logging.debug(gen_infosaj(model))
 
