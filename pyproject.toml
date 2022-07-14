@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolumepy.infosaj"
-version = "0.6.0-alpha.2"
+version = "0.6.0-alpha.3"
 description = "Gerador do Informativo SAJ em HTML."
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 packages = [
@@ -30,6 +30,8 @@ exclude = [
 ]
 
 [tool.poetry.scripts]
+infosaj = 'incolumepy.infosaj_cli.cli:infosaj'
+
 
 [tool.poetry.urls]
 'Source' = 'https://github.com/incolumepy/incolumepy.infosaj'
