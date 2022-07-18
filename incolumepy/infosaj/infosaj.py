@@ -14,7 +14,8 @@ import yaml
 from bs4 import BeautifulSoup
 from faker import Faker
 
-logging.basicConfig(level=logging.DEBUG)
+if os.getenv('DEBUG'):
+    logging.basicConfig(level=logging.DEBUG)
 
 HTMLSKEL = (
     "<!DOCTYPE html>"
@@ -334,7 +335,7 @@ if __name__ == "__main__":  # pragma: no cover
     # model = Path('/tmp/test_load_model_envvar/model.yml')
     # gen_infosaj(model)
     # model = Path(__file__).parents[2].joinpath('model.yml')
-    model = Path().resolve().parents[1].joinpath('datafiles', 'model.yml')
+    model = Path().joinpath('datafiles', 'model.yml')
     logging.debug(model)
     logging.debug(gen_model_conf(model))
     # logging.debug(gen_infosaj(model))
