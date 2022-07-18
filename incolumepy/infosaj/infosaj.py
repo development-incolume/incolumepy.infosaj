@@ -47,7 +47,7 @@ datamodel = {
     "header": "img/header2.2.svg",
     "footer": [None, "img/Logo-CEJ.svg", None],
     "stylecss": ["css/color.css", "css/layout.css"],
-    "soupname": "index.html",
+    "soupname": "informativo.html",
     "aniversariantes": aniversariantes,
     "decisões": [
         {
@@ -335,8 +335,8 @@ if __name__ == "__main__":  # pragma: no cover
     # model = Path('/tmp/test_load_model_envvar/model.yml')
     # gen_infosaj(model)
     # model = Path(__file__).parents[2].joinpath('model.yml')
-    model = Path().joinpath('datafiles', 'model.yml')
+    model = Path().joinpath('datafiles/infosaj', 'model.yml')
     logging.debug(model)
     logging.debug(gen_model_conf(model))
-    # logging.debug(gen_infosaj(model))
+    logging.debug(gen_infosaj(model))
 
